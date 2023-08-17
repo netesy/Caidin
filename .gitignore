@@ -1,0 +1,36 @@
+# Python related
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+venv/
+.env/
+
+# User-specific files
+*.suo
+*.user
+*.sln.docstates
+
+# Editor and IDE files
+.vscode/
+.idea/
+
+# Compiled and generated files
+*.pyc
+*.pyo
+*.class
+*.o
+*.so
+*.dll
+*.exe
+*.db
+*.log
+*.bak
+
+# OS generated files
+.DS_Store
+Thumbs.db
