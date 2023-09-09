@@ -1,58 +1,77 @@
-import random
-from caidin.models.item import Item
-from caidin.algorithms.collaborative_filtering import CollaborativeFiltering
-from caidin.algorithms.content_based import ContentBased
-from caidin.algorithms.matrix_factorization import MatrixFactorization
-
-# Create recommendation engines
-cf_engine = CollaborativeFiltering()
-cb_engine = ContentBased()
-mf_engine = MatrixFactorization()
-
-# Adding items to recommendation engines
-cf_engine.load(
+# Sample data
+data = [
     {
-        "user1": [1, 2, 0, 0, 1],
-        "user2": [0, 3, 1, 0, 2],
-        "user3": [2, 0, 3, 1, 0],
-    }
-)
-
-cb_engine.load(
+        "item_id": 1,
+        "content": "This is the content of item 1",
+    },
     {
-        "item1": [1, 0, 1, 0, 1],
-        "item2": [0, 1, 0, 1, 0],
-        "item3": [1, 1, 0, 0, 1],
-    }
-)
-
-mf_engine.load(
+        "item_id": 2,
+        "content": "Content of item 2 is different",
+    },
     {
-        "user1": [1, 2, 0, 0, 1],
-        "user2": [0, 3, 1, 0, 2],
-        "user3": [2, 0, 3, 1, 0],
-    }
-)
+        "item_id": 3,
+        "content": "Item 3 has unique content",
+    },
+    {
+        "item_id": 4,
+        "content": "Content for item 4 is here",
+    },
+    {
+        "item_id": 5,
+        "content": "Fifth item contains content",
+    },
+]
 
-# Training recommendation engines
-cf_engine.train()
-cb_engine.train()
-mf_engine.train()
+record = {
+    "item_id": [1, 2, 3, 4, 5],
+    # ... other record data ...
+}
 
-# Perform recommendations
-cf_recommendations = cf_engine.get("user1", num_recommendations=3)
-cb_recommendations = cb_engine.get("item1", num_recommendations=3)
-mf_recommendations = mf_engine.get("user1", num_recommendations=3)
+# Create an instance of Caidin
+caidin = Caidin()
 
-# Print recommendations
-print("Collaborative Filtering recommendations for user1:")
-for recommended_item, similarity in cf_recommendations:
-    print(f"{recommended_item} (Similarity: {similarity:.2f})")
+# Load your data and configure the recommendation method
+caidin.load(data).using("content_based").train(record).where(item_id=1)
 
-print("\nContent-Based recommendations for item1:")
-for recommended_item, similarity in cb_recommendations:
-    print(f"{recommended_item} (Similarity: {similarity:.2f})")
+# Get recommendations
+recommended_items = caidin.get()
 
-print("\nMatrix Factorization recommendations for user1:")
-for recommended_item, similarity in mf_recommendations:
-    print(f"{recommended_item} (Similarity: {similarity:.2f})")
+# Show recommended items
+for item in recommended_items:
+    print(f"Item {item['item_id']}: {item['content']}")
+
+or 
+# Create an instance of Caidin
+caidin = Caidin()
+caidin.load(data).using(CollaborativeFiltering).train(record).where(user_id='User1').where(item_id='Item', rating='rating')
+
+# Get recommendations
+recommended_items = caidin.get()
+
+# Show recommended items
+for item in recommended_items:
+    print(f"Item {item['item_id']}: {item['content']}")
+# To use with Custom Recommmendation engines
+
+# multi_base.py
+from caidin.algorithms.recommendation_engine import RecommendationEngine
+
+
+class MultiBased(RecommendationEngine):
+    def recommend(self):
+        # Custom recommendation logic here
+        pass
+
+
+# recommend.py
+from caidin import Caidin
+
+# import the custom recommendation engines
+from multi_based import MultiBased
+
+# Register custom recommendation methods
+caidin = Caidin()
+caidin.register_method("multi_based", MultiBased)
+
+# Use the library with custom recommendation methods
+caidin.load(data).using("multi_based").train(records).get()

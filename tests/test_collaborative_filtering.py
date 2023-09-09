@@ -1,25 +1,40 @@
-import random
 import unittest
-from caidin.models.item import Item
+from caidin import Caidin
 from caidin.algorithms.collaborative_filtering import CollaborativeFiltering
+
+# Sample data for testing
+data = [
+    {
+        "item_id": 1,
+        "content": "This is the content of item 1",
+    },
+    {
+        "item_id": 2,
+        "content": "Content of item 2 is different",
+    },
+    # Add more data...
+]
+
+
+record_collaborative_filtering = {
+    "user_id": ["User1", "User1", "User2"],
+    "item_id": ["Item1", "Item2", "Item1"],
+    "rating": [5, 4, 3],
+    # ... other record data ...
+}
 
 
 class TestCollaborativeFiltering(unittest.TestCase):
-    def setUp(self):
-        self.cf_engine = CollaborativeFiltering()
-
-    def test_recommendation(self):
-        self.cf_engine.load(
-            {
-                "user1": [1, 2, 0, 0, 1],
-                "user2": [0, 3, 1, 0, 2],
-                "user3": [2, 0, 3, 1, 0],
-            }
-        )
-        self.cf_engine.train()
-
-        recommendations = self.cf_engine.get("user1", num_recommendations=2)
-        self.assertEqual(len(recommendations), 2)
+    def test_collaborative_filtering_recommendation(self):
+        caidin = Caidin()
+        caidin.load(data).using(
+            CollaborativeFiltering,
+            user_field="user_id",
+            item_field="item_id",
+            rating_field="rating",
+        ).train(record_collaborative_filtering).where(user_id="User1")
+        recommendations = caidin.get()
+        self.assertTrue(isinstance(recommendations, list))
 
 
 if __name__ == "__main__":

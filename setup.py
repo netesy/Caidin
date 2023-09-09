@@ -11,7 +11,7 @@ setup(
     description="An open-source recommendation engine library in Python",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/caidin",
+    url="https://github.com/netesy/caidin",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",
