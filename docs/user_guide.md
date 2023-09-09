@@ -67,14 +67,14 @@ caidin.load(data)
 You can configure the recommendation method you want to use, such as content-based or collaborative filtering:
 
 ```python
-from caidin.content_based import ContentBased
-from caidin.collaborative_filtering import CollaborativeFiltering
+from caidin.algorithms.content_based import ContentBased
+from caidin.algorithms.collaborative_filtering import CollaborativeFiltering
 
 # Content-Based Recommendation
 caidin.using(ContentBased, content_field='content')
 
 # Collaborative Filtering Recommendation
-caidin.using(CollaborativeFiltering, user_field='user_id', item_field='item_id', rating_field='rating')
+caidin.using(CollaborativeFiltering).train(record).where(user_id='User1').where(item_id='Item', rating='rating')
 ```
 
 ### Training the Recommendation Engine
@@ -140,10 +140,9 @@ Caidin includes unit tests to ensure the functionality of its recommendation met
 To run tests, execute the following command:
 
 ```bash
-python -m unittest tests.test_caidin
+python -m unittest tests
 ```
 
 ---
 
 This documentation provides an overview of the Caidin library, its usage, and how to extend and customize it. For more detailed information, refer to the source code and documentation of specific classes and methods within the library.
-```
