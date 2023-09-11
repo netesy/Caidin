@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "caidin"
+version = "0.0.1"
+authors = [
+  { name="Emmanuel Olisah", email="manuelolisah@gmail.com" },
+]
+description = "An open-source recommendation engine library in Python"
+keywords = ["recommendation", "engine", "content-based", "collaborative filtering"]
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Documentation"= "https://github.com/netesy/caidin/docs"
+"Source Code"= "https://github.com/netesy/caidin"
+"Bug Tracker"= "https://github.com/netesy/caidin/issues"
+
