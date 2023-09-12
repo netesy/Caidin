@@ -1,4 +1,9 @@
-# Caidin: An Open-Source Recommendation Engine Library
+# Caidin
+[![PyPI version](https://img.shields.io/pypi/v/Caidin?style=for-the-badge)](https://pypi.org/project/Caidin/)
+[![PyPi Downloads](https://img.shields.io/pypi/dm/Caidin?style=for-the-badge)](https://pypistats.org/packages/Caidin)
+![Python](https://img.shields.io/pypi/pyversions/Caidin?style=for-the-badge)
+[![License](https://img.shields.io/pypi/l/Caidin.svg?style=for-the-badge)](https://pypi.org/project/Caidin/)
+
 
 Caidin is a Python library that provides a collection of recommendation algorithms and utilities for building recommendation systems. It aims to simplify the process of creating and experimenting with recommendation engines in various domains.
 

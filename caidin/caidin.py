@@ -19,7 +19,7 @@ class Caidin:
     def register_method(self, method_name, method_class):
         self.method_registry[method_name] = method_class
 
-    def load(self, data):
+    def load(self, data: list | dict | str) -> Caidin:
         self.data = data
         return self
 
@@ -31,7 +31,7 @@ class Caidin:
     #     )
     #     return self
 
-    def using(self, method_name=None):
+    def using(self, method_name: str = None) -> Caidin:
         if method_name:
             # Check if it's a user-defined method
             if method_name in self.default_methods:
@@ -46,15 +46,15 @@ class Caidin:
             )
         return self
 
-    def train(self, records):
+    def train(self, records: list | dict | str) -> Caidin:
         self.records = records
         return self
 
-    def where(self, category, value):
+    def where(self, category: str, value):
         self.filters[category] = value
         return self
 
-    def whereNot(self, category, value):
+    def whereNot(self, category: str, value):
         self.filters[category] = {"$ne": value}
         return self
 
